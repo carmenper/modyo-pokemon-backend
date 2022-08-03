@@ -46,7 +46,7 @@ VI. Asegurarse de tener activado el servicio de container registry de GCP, ejecu
 > gcloud services enable containerregistry.googleapis.com
 
 VII. Crear una variable de ambiente llamada 'GOOGLE_CLOUD_PROJECT', a ser usada para crear el contenedor, ejecutando...
-> export GOOGLE_CLOUD_PROJECT=`gcloud config list --format="value(core.project)"`
+> export GOOGLE_CLOUD_PROJECT='gcloud config list --format="value(core.project)"'
 
 VIII. Crear el contenedor, ejecutando...
 > ./mvnw -DskipTests com.google.cloud.tools:jib-maven-plugin:build \
@@ -66,8 +66,8 @@ XI. Crear un servicio de despliegue del contenedor, ejecutando...
 >  --image=gcr.io/$GOOGLE_CLOUD_PROJECT/pokemon-backend-container:v1
 
 XII. Crear un servicio load balancer para exponer el servicio de despliegue a la internet, ejecutando...
-kubectl create service loadbalancer pokemon-backend-deployment --tcp=8080:8080
+> kubectl create service loadbalancer pokemon-backend-deployment --tcp=8080:8080
 
-XIII. Verificar que aplicacion puede ser accesada desde la internet (curl/postman) utilizando la IP-Externa proveida por el load balancer.
+XIII. Verificar que aplicacion puede ser accesada desde la internet (curl/postman) utilizando la IP-Externa proveida por el load balancer para completar los endpoints al principio de este documento.
 
 
