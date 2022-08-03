@@ -5,12 +5,12 @@
 **Endpoints**
 
 Historia de Usuario 01 - POKEMONS endpoint
-http://{IP-Externa:Puerto}/pokemon
+http://{IP-Externa}:8080/pokemon
 
 Historia de Usuario 02 - POKEMON endpoint
-http://{IP-Externa:Puerto}/pokemon/{nombre-pokemon}
+http://{IP-Externa}:8080/pokemon/{nombre-pokemon}
 
-**Por favor, contactar el publicador para el valor de la {IP-Externa:Puerto}.**
+**Por favor, contactar el publicador para el valor de la {IP-Externa}.**
 
 # DESPLIEGUE
 
