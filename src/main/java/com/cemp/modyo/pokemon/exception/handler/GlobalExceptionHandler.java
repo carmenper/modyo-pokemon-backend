@@ -2,6 +2,7 @@ package com.cemp.modyo.pokemon.exception.handler;
 
 import com.cemp.modyo.pokemon.domain.PokemonErrorResponse;
 import com.cemp.modyo.pokemon.exception.ApplicationException;
+import com.cemp.modyo.pokemon.exception.DataException;
 import com.cemp.modyo.pokemon.exception.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,12 +38,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = NotFoundException.class)
     public Object handleNotFoundException(NotFoundException ex) {
         return buildResponseEntity(new PokemonErrorResponse(HttpStatus.NOT_FOUND.value(),
-                ex.getMessage()), HttpStatus.NOT_FOUND);
+                "[" + ex.getResourceId() + "] " + ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = ApplicationException.class)
     public ResponseEntity<Object> handleApplicationException(ApplicationException ex) {
         return buildResponseEntity(new PokemonErrorResponse(ex.getId(), ex.getDetail()),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = DataException.class)
+    public ResponseEntity<Object> handleDataException(DataException ex) {
+        return buildResponseEntity(new PokemonErrorResponse(ex.getId(), ex.getDetail() + " " + ex.getData()),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

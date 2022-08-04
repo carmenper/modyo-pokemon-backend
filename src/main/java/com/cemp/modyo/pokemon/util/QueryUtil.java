@@ -43,21 +43,11 @@ public class QueryUtil {
                 if (stringSplit[0] != null && !stringSplit[0].isBlank()) {
                     if (stringSplit[1] != null && !stringSplit[1].isBlank()) {
                         this.key = stringSplit[0];
-                        this.value = getValue(stringSplit[1]);
+                        this.value = ClassUtil.getValue(stringSplit[1]);
                     }
                 }
             }
         }
 
-        private Integer getValue(String string) {
-            try {
-                return Integer.parseInt(string);
-            } catch (Exception e) {
-                return null;
-            }
-        }
     }
-
-
-
 }

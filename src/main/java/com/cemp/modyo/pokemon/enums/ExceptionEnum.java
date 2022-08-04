@@ -2,11 +2,12 @@ package com.cemp.modyo.pokemon.enums;
 
 public enum ExceptionEnum {
 
-    INVALID_ID(1000, "Invalid Id."),
-    NOT_FOUND(1001, "Resource not found."),
-    COMMUNICATION_EXCEPTION(1002, "Communication Exception."),
-    INVALID_DATA(1003, "Invalid Data."),
-    INVALID_PARAMS(1004, "Invalid Parameters. You must provide none of or both the offset and the limit."),
+    INVALID_ID(1000, "Id inválido."),
+    NOT_FOUND(1001, "no fue encontrado."),
+    COMMUNICATION_EXCEPTION(1002, "Excepción en comunicación."),
+    INVALID_DATA(1003, "Data invalida."),
+    INVALID_PARAMS(1004, "Parametros inválidos. " +
+            "Debe proveer ningun parámetro o ambos valores del offset y limit."),
     ;
 
     private final int id;

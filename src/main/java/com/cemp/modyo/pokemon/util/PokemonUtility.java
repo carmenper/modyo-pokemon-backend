@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 @Component
 public class PokemonUtility {
 
+    private static final String OFFSET = "offset";
+    private static final String LIMIT = "limit";
+
     public List<String> getAbilities(PokeDetail pokeDetail) {
         return pokeDetail.
                 getAbilities().
@@ -41,14 +44,36 @@ public class PokemonUtility {
         holder.put(desc.getText(), versions);
     }
 
-    public void processChainList(List<String> pokemonEvolutions,
-                                 List<PokeChain> chains) {
-        chains.forEach(c -> processChain(pokemonEvolutions, c));
+    public List<String> getEvolutionChain(PokeChain chain) {
+        List<String> pokemonEvolutions = new ArrayList<>();
+        processChain(pokemonEvolutions, chain);
+        return pokemonEvolutions;
     }
 
-    public void processChain(List<String> pokemonEvolutions,
+    private void processChain(List<String> pokemonEvolutions,
                              PokeChain chain) {
         pokemonEvolutions.add(chain.getSpecies().getName());
         processChainList(pokemonEvolutions, chain.getEvolvesTo());
     }
+
+    private void processChainList(List<String> pokemonEvolutions,
+                                 List<PokeChain> chains) {
+        chains.forEach(c -> processChain(pokemonEvolutions, c));
+    }
+
+
+    public Integer getOffset(Map<String, Integer> map) {
+        if (map != null && map.containsKey(OFFSET)) {
+            return map.get(OFFSET);
+        }
+        return null;
+    }
+
+    public Integer getLimit(Map<String, Integer> map) {
+        if (map != null && map.containsKey(LIMIT)) {
+            return map.get(LIMIT);
+        }
+        return null;
+    }
+
 }

@@ -5,11 +5,13 @@ import com.cemp.modyo.pokemon.dto.Poke;
 import com.cemp.modyo.pokemon.dto.PokeDetail;
 import com.cemp.modyo.pokemon.dto.PokeEvolution;
 import com.cemp.modyo.pokemon.dto.PokeSpecies;
+import com.cemp.modyo.pokemon.exception.NotFoundException;
 import com.cemp.modyo.pokemon.pojo.CustomOptional;
 import com.cemp.modyo.pokemon.util.ValidatorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -59,6 +61,10 @@ public class PokemonClientImpl implements PokemonClient {
                         .build(id))
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
+                .onStatus(hs -> hs == HttpStatus.NOT_FOUND,
+                        r -> {
+                    return Mono.error(new NotFoundException(id));
+                })
                 .bodyToMono(PokeDetail.class);
 
         PokeDetail pokeDetail = response.block();

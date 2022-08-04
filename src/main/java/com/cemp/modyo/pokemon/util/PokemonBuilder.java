@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,33 +18,17 @@ import java.util.stream.Collectors;
 @Component
 public class PokemonBuilder {
 
-    private static final String OFFSET = "offset";
-    private static final String LIMIT = "limit";
-
     @Autowired
     private PokemonUtility pokemonUtility;
 
     public PokeMarker getPokeMarker(String url) {
         try {
             Map<String, Integer> map = QueryUtil.getQueryMap(new URL(url));
-            return new PokeMarker(getOffset(map), getLimit(map));
+            return new PokeMarker(pokemonUtility.getOffset(map),
+                    pokemonUtility.getLimit(map));
         } catch (MalformedURLException e) {
             return null;
         }
-    }
-
-    private Integer getOffset(Map<String, Integer> map) {
-        if (map.containsKey(OFFSET)) {
-            return map.get(OFFSET);
-        }
-        return null;
-    }
-
-    private Integer getLimit(Map<String, Integer> map) {
-        if (map.containsKey(LIMIT)) {
-            return map.get(LIMIT);
-        }
-        return null;
     }
 
     public Pokemon getPokemon(PokeDetail pokeDetail) {
@@ -78,9 +61,7 @@ public class PokemonBuilder {
     }
 
     public List<String> getPokemonEvolutions(PokeChain chain) {
-        List<String> evolutions = new ArrayList<>();
-        pokemonUtility.processChain(evolutions, chain);
-        return evolutions;
+        return pokemonUtility.getEvolutionChain(chain);
     }
 
 
