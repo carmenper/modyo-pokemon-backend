@@ -2,7 +2,7 @@ package com.cemp.modyo.pokemon.controller;
 
 import com.cemp.modyo.pokemon.enums.ExceptionEnum;
 import com.cemp.modyo.pokemon.exception.ApplicationException;
-import com.cemp.modyo.pokemon.pojo.CustomOptional;
+import com.cemp.modyo.pokemon.generic.CustomOptional;
 import com.cemp.modyo.pokemon.service.PokemonService;
 import com.cemp.modyo.pokemon.util.ValidatorUtil;
 import lombok.RequiredArgsConstructor;

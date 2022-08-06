@@ -1,7 +1,9 @@
 package com.cemp.modyo.pokemon.util;
 
+import com.cemp.modyo.pokemon.dto.PokeMarker;
 import lombok.Data;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,6 +33,19 @@ public class QueryUtil {
                         toMap(Pair::getKey, Pair::getValue));
     }
 
+    public static PokeMarker getPokeMarker(String url) {
+        if (url != null) {
+            try {
+                Map<String, Integer> map = QueryUtil.getQueryMap(new URL(url));
+                return new PokeMarker(PaginationUtil.getOffset(map),
+                        PaginationUtil.getLimit(map));
+            } catch (MalformedURLException e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
     @Data
     private static class Pair {
 
@@ -43,11 +58,10 @@ public class QueryUtil {
                 if (stringSplit[0] != null && !stringSplit[0].isBlank()) {
                     if (stringSplit[1] != null && !stringSplit[1].isBlank()) {
                         this.key = stringSplit[0];
-                        this.value = ClassUtil.getValue(stringSplit[1]);
+                        this.value = StringUtil.getStringToIntegerValue(stringSplit[1]);
                     }
                 }
             }
         }
-
     }
 }

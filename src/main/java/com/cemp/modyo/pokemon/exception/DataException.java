@@ -15,13 +15,4 @@ public class DataException extends ApplicationException {
         return data;
     }
 
-    @Override
-    public int getId() {
-        return super.getId();
-    }
-
-    @Override
-    public String getDetail() {
-        return super.getDetail();
-    }
 }

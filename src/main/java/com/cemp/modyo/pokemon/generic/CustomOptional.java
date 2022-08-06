@@ -1,4 +1,4 @@
-package com.cemp.modyo.pokemon.pojo;
+package com.cemp.modyo.pokemon.generic;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;

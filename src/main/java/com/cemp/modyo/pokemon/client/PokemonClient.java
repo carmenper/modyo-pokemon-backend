@@ -8,8 +8,8 @@ import com.cemp.modyo.pokemon.dto.PokeSpecies;
 public interface PokemonClient {
 
     Poke getPoke(Integer offset, Integer limit);
-    PokeDetail getPokemon(String id);
-    PokeSpecies getSpecies(String id);
-    PokeEvolution getEvolution(String id);
+    PokeDetail getPokeDetail(String id);
+    PokeSpecies getPokeSpecies(String id);
+    PokeEvolution getPokeEvolution(String id);
 
 }

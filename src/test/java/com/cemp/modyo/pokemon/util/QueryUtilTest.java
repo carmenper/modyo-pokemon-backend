@@ -61,4 +61,13 @@ class QueryUtilTest {
         Assertions.assertEquals(0, map.size());
 
     }
+
+    @Test
+    void getPokeMarkerTest() {
+        Assertions.assertNull(QueryUtil.getPokeMarker(null));
+        Assertions.assertNull(QueryUtil.getPokeMarker(""));
+        Assertions
+                .assertNotNull(QueryUtil
+                        .getPokeMarker("https://pokeapi.co/api/v2/pokemon?offset=200&limit=100"));
+    }
 }

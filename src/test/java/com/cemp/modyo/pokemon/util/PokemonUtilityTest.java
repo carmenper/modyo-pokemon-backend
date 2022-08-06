@@ -1,8 +1,9 @@
 package com.cemp.modyo.pokemon.util;
 
+import com.cemp.modyo.pokemon.domain.PokemonWrapper;
+import com.cemp.modyo.pokemon.dto.Poke;
 import com.cemp.modyo.pokemon.dto.PokeDescription;
 import com.cemp.modyo.pokemon.dto.PokeDetail;
-import com.cemp.modyo.pokemon.dto.PokeEvolution;
 import com.cemp.modyo.pokemon.dto.PokeNameUrl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,13 +22,32 @@ class PokemonUtilityTest {
     private final ObjectMapper mapper = new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    private final PokemonUtility pokemonUtility = new PokemonUtility();
+
+    @Test
+    void getPokemonWrapperTest() throws IOException {
+
+        Poke poke = mapper
+                .readValue(new File("src/test/resources/json/pokes.json"),
+                        Poke.class);
+        PokemonWrapper pokemonWrapper = PokemonUtility.getPokemonWrapper(poke);
+        Assertions.assertNotNull(pokemonWrapper);
+
+        poke.setNext(null);
+        pokemonWrapper = PokemonUtility.getPokemonWrapper(poke);
+        Assertions.assertNotNull(pokemonWrapper);
+
+        poke.setNext("");
+        poke.setPrevious("");
+        pokemonWrapper = PokemonUtility.getPokemonWrapper(poke);
+        Assertions.assertNotNull(pokemonWrapper);
+
+    }
 
     @Test
     void getAbilitiesTest() throws IOException {
         PokeDetail pokeDetail = mapper
                 .readValue(new File("src/test/resources/json/poke.json"), PokeDetail.class);
-        List<String> pokemonAbilities = pokemonUtility.getAbilities(pokeDetail);
+        List<String> pokemonAbilities = PokemonUtility.getAbilities(pokeDetail);
         Assertions.assertNotNull(pokemonAbilities);
         Assert.noNullElements(pokemonAbilities, "");
     }
@@ -36,7 +56,7 @@ class PokemonUtilityTest {
     void getTypesTest() throws IOException {
         PokeDetail pokeDetail = mapper
                 .readValue(new File("src/test/resources/json/poke.json"), PokeDetail.class);
-        List<String> pokemonTypes = pokemonUtility.getTypes(pokeDetail);
+        List<String> pokemonTypes = PokemonUtility.getTypes(pokeDetail);
         Assertions.assertNotNull(pokemonTypes);
         Assert.noNullElements(pokemonTypes, "");
     }
@@ -56,37 +76,14 @@ class PokemonUtilityTest {
         version1.setName("v2");
         desc2.setVersion(version1);
 
-        pokemonUtility.addDescription(holder, desc1);
-        pokemonUtility.addDescription(holder, desc2);
+        PokemonUtility.addDescription(holder, desc1);
+        PokemonUtility.addDescription(holder, desc2);
 
         Assertions.assertEquals(1, holder.size());
         List<String> vers = holder.get("Description Text");
         Assertions.assertEquals(2, vers.size());
     }
 
-    @Test
-    void processChain() throws IOException {
-        PokeEvolution pokeEvolution = mapper
-                .readValue(new File("src/test/resources/json/poke_evolution.json"), PokeEvolution.class);
-        List<String> evolutions = pokemonUtility.getEvolutionChain(pokeEvolution.getChain());
-        Assertions.assertEquals(3, evolutions.size());
-    }
 
-    @Test
-    void getOffset() {
-        Assertions.assertNull(pokemonUtility.getOffset(null));
-        Map<String, Integer> map = new HashMap<>();
-        map.put("offset", 1);
-        Assertions.assertNotNull(pokemonUtility.getOffset(map));
-    }
-
-    @Test
-    void getLimit() {
-        Assertions.assertNull(pokemonUtility.getLimit(null));
-        Map<String, Integer> map = new HashMap<>();
-        map.put("limit", 1);
-        Assertions.assertNotNull(pokemonUtility.getLimit(map));
-
-    }
 
 }

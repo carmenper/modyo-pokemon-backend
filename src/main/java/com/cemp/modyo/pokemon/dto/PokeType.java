@@ -5,6 +5,5 @@ import lombok.Data;
 @Data
 public class PokeType {
 
-    private Long slot;
     private PokeNameUrl type;
 }

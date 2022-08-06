@@ -11,8 +11,6 @@ import org.springframework.util.Assert;
 
 public class ValidatorUtil {
 
-    private static String MESSAGE = "";
-    
     private ValidatorUtil() {
         // This is intentional
     }

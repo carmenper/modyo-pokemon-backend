@@ -3,9 +3,9 @@ package com.cemp.modyo.pokemon.util;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ClassUtil {
+public class DateUtil {
 
-    private ClassUtil() {}
+    private DateUtil() {}
 
     private static final String DATE_FORMAT_PATTERN =  "MMM dd, yyyy hh:mm:ss a";
     public static String getTimeStamp(LocalDateTime localDateTime) {
@@ -25,11 +25,4 @@ public class ClassUtil {
         return LocalDateTime.now();
     }
 
-    public static Integer getValue(String string) {
-        try {
-            return Integer.parseInt(string);
-        } catch (Exception e) {
-            return null;
-        }
-    }
 }
