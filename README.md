@@ -12,10 +12,107 @@ http://{IP-Externa}:8080/pokemon/{nombre-pokemon}
 
 **Por favor, contactar el publicador para el valor de la {IP-Externa}.**
 
+# COMO UTILIZAR ESTA API
+
+**Endpoint http://{IP-Externa}:8080/pokemon**
+
+Este endpoint devuelve una lista de pokemons (registros) con su descripción básica.
+
+Cómo puedo utilizar este endpoint?
+
+Sin paginación
+http://{IP-Externa}:8080/pokemon
+
+Con paginación
+http://{IP-Externa}:8080/pokemon?offset=20&limit=20
+'offset' representa la cantidad de registros que API va a obviar para devolver una respuesta desde el registro representado por offset + 1.
+'limit' representa el número de registros que la API debe deveolver como respuesta.
+
+Requests
+Url: http://localhost:8080/pokemon
+Url: http://localhost:8080/pokemon?offset=20&limit=20
+
+Response (request usado 'http://localhost:8080/pokemon?offset=0&limit=1')
+
+{
+    "pokemons": [
+        {
+            "name": "bulbasaur",
+            "weight": 69,
+            "types": [
+                "grass",
+                "poison"
+            ],
+            "abilities": [
+                "overgrow",
+                "chlorophyll"
+            ],
+            "photo": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+        }
+    ],
+    "count": 1154,
+    "next": {
+        "offset": 1,
+        "limit": 1
+    },
+    "previous": null
+}
+
+**Endpoint http://{IP-Externa}:8080/pokemon/{nombre-pokemon}**
+
+Este endpoint devuelve la información basica de un pokemon con su descripción extendida.
+
+Cómo puedo utilizar este endpoint?
+
+Endpoint http://{IP-Externa}:8080/pokemon/{nombre-pokemon}
+El valor 'nombre-pokemon' es el encontrado en la lista de pokemons bajo la propiedad 'name'. Por ejempo, en "name": "bulbasaur", el valor a utilizar es 'bulbasaur'.
+
+Requests
+Url: http://{IP-Externa}:8080/pokemon/bulbasaur
+
+Respuesta
+
+{
+    "pokemon": {
+        "name": "bulbasaur",
+        "weight": 69,
+        "types": [
+            "grass",
+            "poison"
+        ],
+        "abilities": [
+            "overgrow",
+            "chlorophyll"
+        ],
+        "photo": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+    },
+    "descriptions": [
+        {
+            "description": "There is a plant seed on its back right\nfrom the day this POKéMON is born.\nThe seed slowly grows larger.",
+            "versions": [
+                "firered"
+            ]
+        }
+    ],
+    "evolutions": [
+        "bulbasaur",
+        "ivysaur",
+        "venusaur"
+    ],
+    "evolvedFrom": null,
+    "color": "green",
+    "shape": "quadruped",
+    "habitat": "grassland",
+    "generation": "generation-i",
+    "genus": "Seed Pokémon"
+}
+
+Notese que la descripción extendida incluye datos específicos del pokemon y de su especie ya que a partir de la versión 2 de PokeAPI, la descripción del pokemon se incluye dentro de la especie, basado en la version del juego, asi que se incluye cada descripción única y las versionas a la cual esa descripción aplica.
+
 # DESPLIEGUE
 
-Plataforma: Google Cloud Platform (GCP)
-Proyecto: pokemon-backend
+- Plataforma: Google Cloud Platform (GCP)
+- Proyecto: pokemon-backend
 
 # REQUERIMIENTOS para completar el despliegue
 Para este despliegue se utiliza Kubernetes.
