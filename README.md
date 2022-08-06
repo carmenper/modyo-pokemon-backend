@@ -107,7 +107,7 @@ Respuesta
     "genus": "Seed Pokémon"
 }
 
-Notese que la descripción extendida incluye datos específicos del pokemon y de su especie ya que a partir de la versión 2 de PokeAPI, la descripción del pokemon se incluye dentro de la especie, basado en la version del juego, asi que se incluye cada descripción única y las versionas a la cual esa descripción aplica.
+Notese que la descripción extendida incluye datos específicos del pokemon y de su especie ya que a partir de la versión 2 de PokeAPI, la descripción del pokemon se incluye dentro de la especie, basado en la version del juego, asi que se incluye cada descripción única y las versiones a la cual esa descripción aplica.
 
 # DESPLIEGUE
 
