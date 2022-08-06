@@ -14,7 +14,7 @@ http://{IP-Externa}:8080/pokemon/{nombre-pokemon}
 
 # COMO UTILIZAR ESTA API
 
-**Endpoint http://{IP-Externa}:8080/pokemon**
+## **Endpoint http://{IP-Externa}:8080/pokemon**
 
 Este endpoint devuelve una lista de pokemons (registros) con su descripción básica.
 
@@ -25,15 +25,16 @@ http://{IP-Externa}:8080/pokemon
 
 Con paginación
 http://{IP-Externa}:8080/pokemon?offset=20&limit=20
-'offset' representa la cantidad de registros que API va a obviar para devolver una respuesta desde el registro representado por offset + 1.
-'limit' representa el número de registros que la API debe deveolver como respuesta.
+- 'offset' representa la cantidad de registros que la API va a obviar para devolver una respuesta desde el registro representado por offset + 1.
+- 'limit' representa el número de registros que la API debe devolver como respuesta.
 
 Requests
-Url: http://localhost:8080/pokemon
-Url: http://localhost:8080/pokemon?offset=20&limit=20
+- Url: http://localhost:8080/pokemon
+- Url: http://localhost:8080/pokemon?offset=20&limit=20
 
 Response (request usado 'http://localhost:8080/pokemon?offset=0&limit=1')
 
+```
 {
     "pokemons": [
         {
@@ -57,21 +58,23 @@ Response (request usado 'http://localhost:8080/pokemon?offset=0&limit=1')
     },
     "previous": null
 }
+```
 
-**Endpoint http://{IP-Externa}:8080/pokemon/{nombre-pokemon}**
+## **Endpoint http://{IP-Externa}:8080/pokemon/{nombre-pokemon}**
 
 Este endpoint devuelve la información basica de un pokemon con su descripción extendida.
 
 Cómo puedo utilizar este endpoint?
 
 Endpoint http://{IP-Externa}:8080/pokemon/{nombre-pokemon}
-El valor 'nombre-pokemon' es el encontrado en la lista de pokemons bajo la propiedad 'name'. Por ejempo, en "name": "bulbasaur", el valor a utilizar es 'bulbasaur'.
+- El valor 'nombre-pokemon' es el encontrado en la lista de pokemons bajo la propiedad 'name'. Por ejempo, en "name": "bulbasaur", el valor a utilizar es 'bulbasaur'.
 
-Requests
-Url: http://{IP-Externa}:8080/pokemon/bulbasaur
+Request
+- Url: http://{IP-Externa}:8080/pokemon/bulbasaur
 
 Respuesta
 
+```
 {
     "pokemon": {
         "name": "bulbasaur",
@@ -106,6 +109,7 @@ Respuesta
     "generation": "generation-i",
     "genus": "Seed Pokémon"
 }
+```
 
 Notese que la descripción extendida incluye datos específicos del pokemon y de su especie ya que a partir de la versión 2 de PokeAPI, la descripción del pokemon se incluye dentro de la especie, basado en la version del juego, asi que se incluye cada descripción única y las versiones a la cual esa descripción aplica.
 
