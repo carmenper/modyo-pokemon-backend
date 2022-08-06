@@ -7,6 +7,7 @@ import com.cemp.modyo.pokemon.dto.PokeSpecies;
 import com.cemp.modyo.pokemon.enums.ExceptionEnum;
 import com.cemp.modyo.pokemon.exception.BadRequestException;
 import com.cemp.modyo.pokemon.exception.DataException;
+import com.cemp.modyo.pokemon.generic.CustomOptional;
 import org.springframework.util.Assert;
 
 public class ValidatorUtil {
@@ -15,7 +16,23 @@ public class ValidatorUtil {
         // This is intentional
     }
 
-    public static void validateParams(Integer offset, Integer limit) {
+    public static void validateParams(String offsetString, String limitString) {
+        Integer offset = null;
+        Integer limit = null;
+
+        if (offsetString != null) {
+            offset = StringUtil.getStringToIntegerValue(CustomOptional.ofNullable(offsetString).orElseNull());
+            if (offset == null) {
+                throw new BadRequestException(ExceptionEnum.INVALID_PARAM_OFFSET);
+            }
+        }
+        if (limitString != null) {
+            limit = StringUtil.getStringToIntegerValue(CustomOptional.ofNullable(limitString).orElseNull());
+            if (limit == null) {
+                throw new BadRequestException(ExceptionEnum.INVALID_PARAM_LIMIT);
+            }
+
+        }
         try {
             Assert.isTrue(offset != null ^ limit == null, "");
         } catch (IllegalArgumentException e) {

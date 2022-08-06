@@ -5,11 +5,14 @@ public class StringUtil {
     private StringUtil() {}
 
     public static Integer getStringToIntegerValue(String string) {
-        try {
-            return Integer.parseInt(string);
-        } catch (Exception e) {
-            return null;
+        if (string != null) {
+            try {
+                return Integer.parseInt(string);
+            } catch (Exception e) {
+                return null;
+            }
         }
+        return null;
     }
 
     public static String getEvolutionId(String url) {

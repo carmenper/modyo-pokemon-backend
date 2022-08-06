@@ -2,8 +2,10 @@ package com.cemp.modyo.pokemon.exception.handler;
 
 import com.cemp.modyo.pokemon.domain.PokemonErrorResponse;
 import com.cemp.modyo.pokemon.exception.ApplicationException;
+import com.cemp.modyo.pokemon.exception.BadRequestException;
 import com.cemp.modyo.pokemon.exception.DataException;
 import com.cemp.modyo.pokemon.exception.NotFoundException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -81,11 +83,32 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Object> handleBadRequestException(BadRequestException ex) {
+        return buildResponseEntity(new PokemonErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                        ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {
+        return buildResponseEntity(new PokemonErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                        ex.getMessage()),
+                HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(NumberFormatException.class)
     public ResponseEntity<Object> handleNumberFormatException(NumberFormatException ex) {
         return buildResponseEntity(new PokemonErrorResponse(HttpStatus.BAD_REQUEST.value(),
                         ex.getMessage()),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception ex) {
+        return buildResponseEntity(new PokemonErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                        ex.getMessage()),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

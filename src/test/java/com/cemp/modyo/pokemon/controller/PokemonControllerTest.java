@@ -58,7 +58,7 @@ class PokemonControllerTest {
         PokemonWrapper pokemonWrapper = new PokemonWrapper();
         Mockito.when(pokemonService2.getPokemons(0, 0)).thenReturn(pokemonWrapper);
         PokemonWrapper pw = (PokemonWrapper) pokemonController2
-                .getPokemons(0, 0).getBody();
+                .getPokemons("0", "0").getBody();
         Assertions.assertNotNull(pw);
     }
 
