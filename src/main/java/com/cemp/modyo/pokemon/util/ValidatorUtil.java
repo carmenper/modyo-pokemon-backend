@@ -89,13 +89,6 @@ public class ValidatorUtil {
         try {
             Assert.notNull(o, "No se pudo encontrar la especie del pokemon.");
 
-            Assert.notNull(o.getEvolvesFromSpecies(), 
-                    "Datos de la evolución del pokemon son inválidos.");
-            Assert.notNull(o.getEvolvesFromSpecies().getName(), 
-                    "Especie de evolución del pokemon es inválida.");
-            Assert.hasText(o.getEvolvesFromSpecies().getName(),
-                    "Especie de evolución del pokemon es inválida.");
-
             Assert.notNull(o.getColor(), "Datos del color del pokemon son inválidos.");
             Assert.notNull(o.getColor().getName(), "Color del pokemon es inválido.");
             Assert.hasText(o.getColor().getName(), "Color del pokemon es inválido.");

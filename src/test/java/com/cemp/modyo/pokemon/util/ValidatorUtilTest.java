@@ -16,16 +16,16 @@ class ValidatorUtilTest {
     void validateParamsTest() {
 
         ValidatorUtil.validateParams(null, null);
-        ValidatorUtil.validateParams(20, 20);
+        ValidatorUtil.validateParams("20", "20");
 
         try {
-            ValidatorUtil.validateParams(20, null);
+            ValidatorUtil.validateParams("20", null);
         } catch (BadRequestException e) {
             Assertions.assertEquals(ExceptionEnum.INVALID_PARAMS.getDetail(), e.getMessage());
         }
 
         try {
-            ValidatorUtil.validateParams(null, 20);
+            ValidatorUtil.validateParams(null, "20");
         } catch (BadRequestException e) {
             Assertions.assertEquals(ExceptionEnum.INVALID_PARAMS.getDetail(), e.getMessage());
         }
@@ -197,28 +197,6 @@ class ValidatorUtilTest {
                     e.getData());
         }
         PokeSpecies pe = new PokeSpecies();
-        try {
-            ValidatorUtil.validatePokeSpecies(pe);
-        } catch (DataException e) {
-            Assertions.assertEquals(msg + "Datos de la evolución del pokemon son inválidos.",
-                    e.getData());
-        }
-        PokeNameUrl pen = new PokeNameUrl();
-        pe.setEvolvesFromSpecies(pen);
-        try {
-            ValidatorUtil.validatePokeSpecies(pe);
-        } catch (DataException e) {
-            Assertions.assertEquals(msg + "Especie de evolución del pokemon es inválida.",
-                    e.getData());
-        }
-        pen.setName("");
-        try {
-            ValidatorUtil.validatePokeSpecies(pe);
-        } catch (DataException e) {
-            Assertions.assertEquals(msg + "Especie de evolución del pokemon es inválida.",
-                    e.getData());
-        }
-        pen.setName("especies evolution name");
         try {
             ValidatorUtil.validatePokeSpecies(pe);
         } catch (DataException e) {

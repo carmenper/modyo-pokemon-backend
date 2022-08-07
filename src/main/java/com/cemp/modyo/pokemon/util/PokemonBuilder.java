@@ -47,7 +47,12 @@ public class PokemonBuilder {
         PokemonSpecies pokemonSpecies = new PokemonSpecies();
         pokemonSpecies.setColor(pokeSpecies.getColor().getName());
         pokemonSpecies.setShape(pokeSpecies.getShape().getName());
-        pokemonSpecies.setEvolvesFromSpecies(pokeSpecies.getEvolvesFromSpecies().getName());
+
+        if (pokeSpecies.getEvolvesFromSpecies() != null
+                && pokeSpecies.getEvolvesFromSpecies().getName() != null) {
+            pokemonSpecies.setEvolvesFromSpecies(pokeSpecies.getEvolvesFromSpecies().getName());
+        }
+
         pokemonSpecies.setHabitat(pokeSpecies.getHabitat().getName());
         pokemonSpecies.setGeneration(pokeSpecies.getGeneration().getName());
 
