@@ -170,7 +170,7 @@ XIII. Verificar que aplicacion puede ser accesada desde la internet (curl/postma
 
 # POKEMON FRONTEND
 
-## Ejecución como Servicio
+## Ejecución como Servicio en GCP
 https://pokemon-frontend.ue.r.appspot.com/
 
 **Sin embargo, este servicio de frontend esta desplagado en https. El servicio del backend esta desplegado en http. Esta situación impide que el frontend desplegado realice llamadas al backend desplegado.** Realice el esfuerzo de despleagar el servicio del backend con ingress, pero no fui existoso ya que los health checks persistian en marcar el servicio como no saludable y no permitió tráfico.
@@ -179,3 +179,9 @@ https://pokemon-frontend.ue.r.appspot.com/
 https://github.com/carmenper/modyo-pokemon-frontend
 
 La ejecución local permite llamadas al backend via http.
+
+**Frontend options en ejecución local**
+- Seleccionar el boton de la izquierda (1) cuando se ejecuta el backend localmente.
+- Seleccionar el boton de la derecha (2) cuando se desea utilizar el servicio del backend delplegado en GCP.
+
+![image](https://user-images.githubusercontent.com/94915942/183330299-5d92270a-d328-4ea1-9b1a-3468010eac15.png)
