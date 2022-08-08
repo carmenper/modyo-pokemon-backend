@@ -169,6 +169,7 @@ XII. Crear un servicio load balancer para exponer el servicio de despliegue a la
 XIII. Verificar que aplicacion puede ser accesada desde la internet (curl/postman) utilizando la IP-Externa proveida por el load balancer para completar los endpoints al principio de este documento.
 
 # POKEMON FRONTEND
+El frontend fue desarrollado en Angular TS.
 
 ## Ejecución como Servicio en GCP
 https://pokemon-frontend.ue.r.appspot.com/
