@@ -147,28 +147,35 @@ VI. Asegurarse de tener activado el servicio de container registry de GCP, ejecu
 > gcloud services enable containerregistry.googleapis.com
 
 VII. Crear una variable de ambiente llamada 'GOOGLE_CLOUD_PROJECT', a ser usada para crear el contenedor, ejecutando...
-> export GOOGLE_CLOUD_PROJECT='gcloud config list --format="value(core.project)"'
+> export GOOGLE_CLOUD_PROJECT=\`gcloud config list --format="value(core.project)"\`
+
 
 VIII. Crear el contenedor, ejecutando...
-> ./mvnw -DskipTests com.google.cloud.tools:jib-maven-plugin:build \
->  -Dimage=gcr.io/$GOOGLE_CLOUD_PROJECT/pokemon-backend-container:v1
+> ./mvnw -DskipTests com.google.cloud.tools:jib-maven-plugin:build -Dimage=gcr.io/$GOOGLE_CLOUD_PROJECT/pokemon-backend-container:v1
 
 IX. Asegurarse de tener activado el servicio de compute y container de GCP, ejecutando...
 > gcloud services enable compute.googleapis.com container.googleapis.com
 
 X. Crear del cluster de Kubernetes, ejecutando...
-> gcloud container clusters create pokemon-backend-cluster \
->  --num-nodes 2 \
->  --machine-type n1-standard-1 \
->  --zone us-central1-c
+> gcloud container clusters create pokemon-backend-cluster --num-nodes 2 --machine-type n1-standard-1 --zone us-central1-c
+Este comando puede tardar unso minutos en completar.
 
 XI. Crear un servicio de despliegue del contenedor, ejecutando...
-> kubectl create deployment pokemon-backend-deployment \
->  --image=gcr.io/$GOOGLE_CLOUD_PROJECT/pokemon-backend-container:v1
+> kubectl create deployment pokemon-backend-deployment --image=gcr.io/$GOOGLE_CLOUD_PROJECT/pokemon-backend-container:v1
 
 XII. Crear un servicio load balancer para exponer el servicio de despliegue a la internet, ejecutando...
 > kubectl create service loadbalancer pokemon-backend-deployment --tcp=8080:8080
 
 XIII. Verificar que aplicacion puede ser accesada desde la internet (curl/postman) utilizando la IP-Externa proveida por el load balancer para completar los endpoints al principio de este documento.
 
+# POKEMON FRONTEND
 
+## Ejecución como Servicio
+https://pokemon-frontend.ue.r.appspot.com/
+
+**Sin embargo, este servicio de frontend esta desplagado en https. El servicio del backend esta desplegado en http. Esta situación impide que el frontend desplegado realice llamadas al backend desplegado.** Realice el esfuerzo de despleagar el servicio del backend con ingress, pero no fui existoso ya que los health checks persistian en marcar el servicio como no saludable y no permitió tráfico.
+
+## Ejecución local
+https://github.com/carmenper/modyo-pokemon-frontend
+
+La ejecución local permite llamadas al backend via http.
